@@ -37,7 +37,7 @@ class GameFragment : Fragment() {
 
     private lateinit var binding: GameFragmentBinding
 
-
+//sdfksdfksd;fk;sdlfk;
     private lateinit var viewModel: GameViewModel
 
 

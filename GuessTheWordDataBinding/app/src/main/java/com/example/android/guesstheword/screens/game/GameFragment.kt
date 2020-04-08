@@ -29,7 +29,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.android.guesstheword.R
 import com.example.android.guesstheword.databinding.GameFragmentBinding
-//ldsjflkdsfj
+
 /**
  * Fragment where the game is played
  */
@@ -42,7 +42,7 @@ class GameFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        // Inflate view and obtain an instance of the binding class
+        // Inflate view and obtain an instance of the binding class osjodjsfojsdof
         binding = DataBindingUtil.inflate(
                 inflater,
                 R.layout.game_fragment,

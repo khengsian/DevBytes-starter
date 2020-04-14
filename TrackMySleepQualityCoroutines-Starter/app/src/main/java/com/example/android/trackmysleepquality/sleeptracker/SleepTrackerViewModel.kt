@@ -4,7 +4,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ *check here
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -17,7 +17,6 @@
 package com.example.android.trackmysleepquality.sleeptracker
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -35,8 +34,13 @@ import kotlinx.coroutines.withContext
  * ViewModel for SleepTrackerFragment.
  */
 class SleepTrackerViewModel(
-        val database: SleepDatabaseDao,
-        application: Application) : AndroidViewModel(application) {
+        dataSource: SleepDatabaseDao,
+        application: Application) : ViewModel() {
+
+    /**
+     * Hold a reference to SleepDatabase via SleepDatabaseDao.
+     */
+    val database = dataSource
 
     /** Coroutine variables */
 
@@ -59,7 +63,7 @@ class SleepTrackerViewModel(
 
     private var tonight = MutableLiveData<SleepNight?>()
 
-    private val nights = database.getAllNights()
+    val nights = database.getAllNights()
 
     /**
      * Converted nights to Spanned for displaying.
@@ -95,12 +99,12 @@ class SleepTrackerViewModel(
      *
      * This is private because we don't want to expose setting this value to the Fragment.
      */
-    private var _showSnackbarEvent = MutableLiveData<Boolean>()
+    private var _showSnackbarEvent = MutableLiveData<Boolean?>()
 
     /**
      * If this is true, immediately `show()` a toast and call `doneShowingSnackbar()`.
      */
-    val showSnackBarEvent: LiveData<Boolean>
+    val showSnackBarEvent: LiveData<Boolean?>
         get() = _showSnackbarEvent
 
     /**
@@ -123,7 +127,7 @@ class SleepTrackerViewModel(
      * toast.
      */
     fun doneShowingSnackbar() {
-        _showSnackbarEvent.value = false
+        _showSnackbarEvent.value = null
     }
 
     /**
@@ -184,7 +188,7 @@ class SleepTrackerViewModel(
     /**
      * Executes when the START button is clicked.
      */
-    fun onStartTracking() {
+    fun onStart() {
         uiScope.launch {
             // Create a new night, which captures the current time,
             // and insert it into the database.
@@ -199,12 +203,11 @@ class SleepTrackerViewModel(
     /**
      * Executes when the STOP button is clicked.
      */
-    fun onStopTracking() {
+    fun onStop() {
         uiScope.launch {
             // In Kotlin, the return@label syntax is used for specifying which function among
             // several nested ones this statement returns from.
-            // In this case, we are specifying to return from launch(),
-            // not the lambda.
+            // In this case, we are specifying to return from launch().
             val oldNight = tonight.value ?: return@launch
 
             // Update the night in the database to add the end time.

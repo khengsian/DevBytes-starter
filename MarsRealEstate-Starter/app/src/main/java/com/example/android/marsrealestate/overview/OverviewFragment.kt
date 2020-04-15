@@ -12,7 +12,7 @@ import com.example.android.marsrealestate.databinding.GridViewItemBinding
 import com.example.android.marsrealestate.network.MarsApiFilter
 
 /**
- * This fragmenojjiot shows the the status of the Mars real-estate web services transaction.
+ * This fragmenojjiot shows the the status ofkjlkjljlkjkl the Mars real-estate web services transaction.
  */
 class OverviewFragment : Fragment() {
 
